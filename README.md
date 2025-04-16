@@ -7,11 +7,11 @@ Logging utility for [kakoune](https://kakoune.org/).
 Using [plug.kak](https://github.com/andreyorst/plug.kak):
 
 ```sh
-plug 'cameron-yee/kakoune-log' config %{
+plug 'cameron-yee/kak-log' config %{
     declare-user-mode log
 
     map global log l ':kak-log<ret>' -docstring 'add log statement for the current selection'
-    map global log l ':kak-execute-file<ret>' -docstring 'add log statement for the current selection'
+    map global log e ':kak-execute-file<ret>' -docstring 'add log statement for the current selection'
     map global user l ':enter-user-mode<space>log<ret>' -docstring 'log'
 }
 
