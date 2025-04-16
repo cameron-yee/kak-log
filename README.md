@@ -2,6 +2,8 @@
 
 Logging utility for [kakoune](https://kakoune.org/).
 
+![Demo](./demo.gif)
+
 ## Setup
 
 Using [plug.kak](https://github.com/andreyorst/plug.kak):
