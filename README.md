@@ -17,7 +17,7 @@ plug 'cameron-yee/kakoune-log' config %{
 
 hook global WinSetOption filetype=(javascript|typescript) %{
     set-option global kak_log_log_fn 'console.log'
-    set-option global kak_log_run_command 'node'
+    set-option global kak_log_execute_command 'node'
 }
 ```
 
@@ -29,4 +29,4 @@ The `kak-log` command will add a print statement to a newline with the current s
 
 ### kak-execute-file
 
-The `kak-execute-file` command will execute the current file with the `kak_log_run_command` option and write stdout to a new scratch buffer.
+The `kak-execute-file` command will execute the current file with the `kak_log_execute_command` option and write stdout to a new scratch buffer.

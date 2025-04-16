@@ -13,6 +13,6 @@ define-command kak-execute-file -docstring "run command and output stdout to new
     set-option global kak_log_file_path %val{buffile}
     edit -scratch 'kak-log'
 
-    execute-keys "i%sh{$kak_opt_kak_log_run_command $kak_opt_kak_log_file_path $kak_opt_kak_log_run_options}<esc>"
-    echo %sh{echo "$kak_opt_kak_log_run_command $kak_opt_kak_log_file_path $kak_opt_kak_log_run_options"}
+    execute-keys "i%sh{$kak_opt_kak_log_execute_command $kak_opt_kak_log_file_path $kak_opt_kak_log_execute_options}<esc>"
+    echo %sh{echo "$kak_opt_kak_log_execute_command $kak_opt_kak_log_file_path $kak_opt_kak_log_execute_options"}
 }
