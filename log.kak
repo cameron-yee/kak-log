@@ -1,7 +1,7 @@
 declare-option str kak_log_log_fn
 
 define-command kak-log -docstring "log current selection" %{
-    execute-keys "o%opt{kak_log_log_fn}(%sh{ printf %s $kak_selection })<esc>"
+    execute-keys "yo%opt{kak_log_log_fn}(<esc>Pa)<esc>"
     try %{ format }
 }
 
