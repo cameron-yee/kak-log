@@ -14,7 +14,7 @@ define-command kak-execute-file -docstring "run command and output stdout to new
     edit -scratch 'kak-log'
 
     nop %sh{ {
-        echo "eval -client '$kak_client' \"execute-keys i%sh{$kak_opt_kak_log_execute_command $kak_opt_kak_log_file_path $kak_opt_kak_log_execute_options | tr '\n' ' '}<esc>\"" | kak -p ${kak_session}
+        echo "eval -client '$kak_client' \"execute-keys i%sh{$kak_opt_kak_log_execute_command $kak_opt_kak_log_file_path $kak_opt_kak_log_execute_options | tr '\n' '~' | sed 's/~/<ret>/g'}<esc>\"" | kak -p ${kak_session}
         echo "eval -client '$kak_client' 'echo %sh{echo $kak_opt_kak_log_execute_command $kak_opt_kak_log_file_path $kak_opt_kak_log_execute_options}'" | kak -p ${kak_session}
     } > /dev/null 2>&1 < /dev/null & }
 }
