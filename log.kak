@@ -11,10 +11,18 @@ declare-option str kak_log_file_path
 
 define-command kak-execute-file -docstring "run command and output stdout to new buffer" %{
     set-option global kak_log_file_path %val{buffile}
-    edit -scratch 'kak-log'
 
-    nop %sh{ {
-        echo "eval -client '$kak_client' \"execute-keys i%sh{$kak_opt_kak_log_execute_command $kak_opt_kak_log_file_path $kak_opt_kak_log_execute_options | tr '\n' '~' | sed 's/~/<ret>/g'}<esc>\"" | kak -p ${kak_session}
-        echo "eval -client '$kak_client' 'echo %sh{echo $kak_opt_kak_log_execute_command $kak_opt_kak_log_file_path $kak_opt_kak_log_execute_options}'" | kak -p ${kak_session}
-    } > /dev/null 2>&1 < /dev/null & }
+    # :doc buffers fifo-buffers
+    # see rc/grep.kak
+    evaluate-commands %sh{
+        output=$(mktemp -d "${TMPDIR:-/tmp}"/kak-log.XXXXXXXX)/fifo
+        mkfifo ${output}
+        ( { trap - INT QUIT; eval "$kak_opt_kak_log_execute_command $kak_opt_kak_log_file_path $kak_opt_kak_log_execute_options" 2>&1 | tr -d '\r'; } > ${output} 2>&1 & ) > /dev/null 2>&1 < /dev/null
+
+        printf %s\\n "evaluate-commands -try-client '$kak_opt_toolsclient' %{
+            edit! -fifo ${output} *kak-log*
+            set-option buffer jump_current_line 0
+            hook -always -once buffer BufCloseFifo .* %{ nop %sh{ rm -r $(dirname ${output}) }}
+        }"
+    }
 }
