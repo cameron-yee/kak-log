@@ -26,3 +26,5 @@ define-command kak-execute-file -params .. -docstring "run command and output st
         }"
     }
 }
+
+complete-command kak-execute-file command
